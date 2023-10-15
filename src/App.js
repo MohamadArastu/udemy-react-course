@@ -1,4 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+function Clock() {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+  useEffect(function () {
+    setInterval(function () {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+  }, []);
+
+  return <h2>It is {time} o clock</h2>;
+}
+
+function Message(props) {
+  return <p>You got {props.count} advices so far</p>;
+}
 
 export default function App() {
   const [advice, setAdvice] = React.useState("");
@@ -17,14 +32,10 @@ export default function App() {
 
   return (
     <div>
-      <h1>Hello StackBlitz!</h1>
+      <h1>{advice}</h1>
       <button onClick={getAdvice}>Get advice</button>
-      <p>{advice}</p>
       <Message count={adviceCount} />
+      <Clock />
     </div>
   );
-}
-
-function Message(props) {
-  return <p>You got {props.count} advices so far</p>;
 }
